@@ -125,6 +125,7 @@ const changeValue = (localizationOption, index) => {
 
     if (!versionInformation) {
       reject(`changeValue::Version information not found || index: ${index}`);
+      return;
     }
 
     document.querySelector("#whatsNew").value = versionInformation;
