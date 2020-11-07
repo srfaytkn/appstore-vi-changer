@@ -56,7 +56,7 @@ const versionInformations = [
 - Run in browser console
 
 ```javascript
-const delay=2e3,onInputEvent=new Event("input"),localizationOptionMenu=document.querySelectorAll("div.tb-popover > div")[1],localizationOptions=localizationOptionMenu.getElementsByTagName("ul")[0].children,changeLocale=(e,n)=>new Promise(r=>{const o=e.getElementsByTagName("button")[0];o.click(),console.info(`changeLocale::localization button clicked || buttonVal: ${o.textContent}, index: ${n}`),setTimeout(()=>r(),2e3)}),changeValue=(e,n)=>new Promise((e,r)=>{const o=versionInformations[n];o||r(`changeValue::Version information not found || index: ${n}`),document.querySelector("#whatsNew").value=o,document.querySelector("#whatsNew").dispatchEvent(onInputEvent),console.info(`changeValue::whatsNew input changed || newVal: ${o}, index: ${n}`),setTimeout(()=>e(),2e3)}),start=async e=>{const n=localizationOptions[e];if(n)try{await changeLocale(n,e),await changeValue(0,e)}catch(e){console.error(e)}finally{start(e+1)}};start(0);
+const delay=2e3,onInputEvent=new Event("input"),localizationOptionMenu=document.querySelectorAll("div.tb-popover > div")[1],localizationOptions=localizationOptionMenu.getElementsByTagName("ul")[0].children,changeLocale=(e,n)=>new Promise((t,o)=>{const a=e.getElementsByTagName("button")[0];a?(a.click(),console.info(`changeLocale::localization button clicked || buttonVal: ${a.textContent}, index: ${n}`),setTimeout(()=>t(),2e3)):o(`changeLocale::Button not found || index: ${n}`)}),changeValue=(e,n)=>new Promise((e,t)=>{const o=versionInformations[n];o?(document.querySelector("#whatsNew").value=o,document.querySelector("#whatsNew").dispatchEvent(onInputEvent),console.info(`changeValue::whatsNew input changed || newVal: ${o}, index: ${n}`),setTimeout(()=>e(),2e3)):t(`changeValue::Version information not found || index: ${n}`)}),start=async e=>{const n=localizationOptions[e];if(n)try{await changeLocale(n,e),await changeValue(0,e)}catch(e){console.error(e)}finally{start(e+1)}else console.info("done")};start(0);
 ```
 
 ## Uncompressed Code
@@ -110,8 +110,14 @@ const localizationOptionMenu = document.querySelectorAll("div.tb-popover > div")
 const localizationOptions = localizationOptionMenu.getElementsByTagName("ul")[0].children;
 
 const changeLocale = (localizationOption, index) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const button = localizationOption.getElementsByTagName("button")[0];
+
+    if (!button) {
+      reject(`changeLocale::Button not found || index: ${index}`);
+      return;
+    }
+
     button.click();
 
     console.info(`changeLocale::localization button clicked || buttonVal: ${button.textContent}, index: ${index}`);
@@ -140,6 +146,7 @@ const start = async (index) => {
   const localizationOption = localizationOptions[index];
 
   if (!localizationOption) {
+    console.info("done");
     return;
   }
 
