@@ -1,8 +1,8 @@
-### App Store Version Information Changer
+# App Store Version Information Changer
 
 ## Getting started
 
-# Step1
+### Step1
 
 - Match the versionInformations to the AppStore localized languages with the same order
 - Run in browser console
@@ -51,7 +51,7 @@ const versionInformations = [
 ];
 ```
 
-# Step2
+### Step2
 
 - Run in browser console
 
