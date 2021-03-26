@@ -56,7 +56,7 @@ const versionInformations = [
 - Run in browser console
 
 ```javascript
-const delay=1e3,onInputEvent=new Event("input"),localizationOptionMenu=document.querySelectorAll("div.tb-popover > div")[1],localizationOptions=localizationOptionMenu.getElementsByTagName("ul")[0].children,changeLocale=(e,n)=>new Promise((t,o)=>{const a=e.getElementsByTagName("button")[0];a?(a.click(),console.info(`changeLocale::localization button clicked || buttonVal: ${a.textContent}, index: ${n}`),setTimeout(()=>t(),delay)):o(`changeLocale::Button not found || index: ${n}`)}),changeValue=(e,n)=>new Promise((e,t)=>{const o=versionInformations[n];o?(document.querySelector("#whatsNew").value=o,document.querySelector("#whatsNew").dispatchEvent(onInputEvent),console.info(`changeValue::whatsNew input changed || newVal: ${o}, index: ${n}`),setTimeout(()=>e(),delay)):t(`changeValue::Version information not found || index: ${n}`)}),start=async e=>{const n=localizationOptions[e];if(n)try{await changeLocale(n,e),await changeValue(0,e)}catch(e){console.error(e)}finally{start(e+1)}else console.info("done")};start(0);
+const delay=1e3,onInputEvent=new Event("input"),localizationOptionMenu=document.querySelectorAll("div.tb-popover > div")[1],localizationOptions=localizationOptionMenu.getElementsByTagName("ul")[0].children,changeLocale=(e,n)=>new Promise((t,o)=>{const a=e.getElementsByTagName("button")[0];a?(a.click(),console.info(`changeLocale::localization button clicked || buttonVal: ${a.textContent}, index: ${n}`),setTimeout(()=>t(),delay)):o(`changeLocale::Button not found || index: ${n}`)}),changeValue=(e,n)=>new Promise((e,t)=>{const o=versionInformations[n];o?(document.querySelector("div[name=whatsNew]").value=o,document.querySelector("div[name=whatsNew]").dispatchEvent(onInputEvent),console.info(`changeValue::whatsNew input changed || newVal: ${o}, index: ${n}`),setTimeout(()=>e(),delay)):t(`changeValue::Version information not found || index: ${n}`)}),start=async e=>{const n=localizationOptions[e];if(n)try{await changeLocale(n,e),await changeValue(0,e)}catch(e){console.error(e)}finally{start(e+1)}else console.info("done")};start(0);
 ```
 
 ## Uncompressed Code
@@ -134,8 +134,8 @@ const changeValue = (localizationOption, index) => {
       return;
     }
 
-    document.querySelector("#whatsNew").value = versionInformation;
-    document.querySelector("#whatsNew").dispatchEvent(onInputEvent);
+    document.querySelector("div[name=whatsNew]").value = versionInformation;
+    document.querySelector("div[name=whatsNew]").dispatchEvent(onInputEvent);
 
     console.info(`changeValue::whatsNew input changed || newVal: ${versionInformation}, index: ${index}`);
     setTimeout(() => resolve(), delay);
